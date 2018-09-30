@@ -9,12 +9,14 @@
   },
   "rules": {
     "no-console": false,
+    "object-literal-sort-keys": false,
     "ordered-imports": [
       true,
       {
         "import-sources-order": "any",
         "named-imports-order": "case-insensitive"
       }
-    ]
+    ],
+    "curly": false
   }
 }

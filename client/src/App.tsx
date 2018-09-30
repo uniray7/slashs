@@ -1,14 +1,11 @@
 import * as React from "react";
-import ApolloClient from "apollo-boost";
 
 import gql from "graphql-tag";
 import "./App.css";
 
 import logo from "./logo.svg";
 
-const client = new ApolloClient({
-  uri: "http://localhost:4000/graphql"
-});
+import { client } from './apollo';
 
 class App extends React.Component {
   public async componentDidMount() {
