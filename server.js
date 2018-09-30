@@ -1,4 +1,5 @@
 const express = require("express");
+const morgan = require('morgan'); // logger request
 const { ApolloServer, gql } = require("apollo-server-express");
 
 // Construct a schema, using GraphQL schema language
@@ -18,12 +19,13 @@ const resolvers = {
 const server = new ApolloServer({ typeDefs, resolvers });
 
 const app = express();
+app.use(morgan('combined'))
 server.applyMiddleware({ app });
 
-app.get("/", (req, res) => res.send("Hello World!"));
+require('./config/passport');
+var routes = require('./routes')
+app.use(routes);
 
-var usersRouter = require("./routes/users");
-app.use("/users", usersRouter);
 app.listen({ port: 4000 }, () =>
   console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
 );
