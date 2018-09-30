@@ -17,6 +17,7 @@
         "named-imports-order": "case-insensitive"
       }
     ],
-    "curly": false
+    "curly": false,
+    "interface-name": false
   }
 }
