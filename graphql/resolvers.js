@@ -29,12 +29,12 @@ const resolvers = {
   },
   Mutation: {
     addMessage(root, args, context) {
-      pubsub.publish(MSG_ADDED, { messageAdded: args });
       const newMsg = {
         id: messages.length + 1,
         user: "user3",
         content: args.message
       };
+      pubsub.publish(MSG_ADDED, { messageAdded: newMsg });
       messages.push(newMsg);
       return newMsg;
     }

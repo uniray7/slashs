@@ -8,6 +8,11 @@
     ]
   },
   "rules": {
+    "jsx-no-lambda": false,
+    "member-access": [
+      true,
+      "no-public"
+    ],
     "no-console": false,
     "object-literal-sort-keys": false,
     "ordered-imports": [

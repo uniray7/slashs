@@ -1,14 +1,12 @@
 import * as React from "react";
 
 interface Props {
-  content: string
+  content: string;
 }
 
 export default class Message extends React.Component<Props, {}> {
-  public render() {
+  render() {
     const { content } = this.props;
-    return (
-      <div>{content}</div>
-    );
+    return <div>{content}</div>;
   }
 }

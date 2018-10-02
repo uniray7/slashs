@@ -8,7 +8,7 @@ import Chat from "./Chat";
 import "./App.css";
 
 class App extends React.Component {
-  public async componentDidMount() {
+  async componentDidMount() {
     const data = await client.query({
       query: gql`
         {
@@ -19,7 +19,7 @@ class App extends React.Component {
     console.log(data);
   }
 
-  public render() {
+  render() {
     return (
       <ApolloProvider client={client}>
         <div className="App">
