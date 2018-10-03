@@ -1,19 +1,19 @@
-const { PubSub } = require("apollo-server-express");
+import { PubSub } from 'apollo-server-express';
 
 const pubsub = new PubSub();
 
-const MSG_ADDED = "MSG_ADDED";
+const MSG_ADDED = 'MSG_ADDED';
 // Test data
 let messages = [
   {
     id: 1,
-    user: "user1",
-    content: "test msg1"
+    user: 'user1',
+    content: 'test msg1'
   },
   {
     id: 2,
-    user: "user2",
-    content: "test msg2"
+    user: 'user2',
+    content: 'test msg2'
   }
 ];
 
@@ -24,14 +24,14 @@ const resolvers = {
     }
   },
   Query: {
-    hello: () => "Hello world!",
+    hello: () => 'Hello world!',
     messages: () => messages
   },
   Mutation: {
-    addMessage(root, args, context) {
+    addMessage(root, args) {
       const newMsg = {
         id: messages.length + 1,
-        user: "user3",
+        user: 'user3',
         content: args.message
       };
       pubsub.publish(MSG_ADDED, { messageAdded: newMsg });
@@ -41,4 +41,4 @@ const resolvers = {
   }
 };
 
-module.exports = resolvers;
+export default resolvers;

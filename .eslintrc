@@ -1,0 +1,47 @@
+{
+  "env": {
+    "node": true,
+    "es6": true
+  },
+  "extends": [
+    "prettier",
+    "prettier/standard",
+    "plugin:import/errors",
+    "plugin:import/warnings"
+  ],
+  "plugins": [],
+  "parserOptions": {
+    "ecmaVersion": 8,
+    "sourceType": "module"
+  },
+  "settings": {},
+  "globals": {},
+  "rules": {
+    "block-scoped-var": "error",
+    "camelcase": "error",
+    "eqeqeq": [
+      "error",
+      "smart"
+    ],
+    "max-depth": [
+      "warn",
+      3
+    ],
+    "max-statements": [
+      "warn",
+      30
+    ],
+    "new-cap": "warn",
+    "no-extend-native": "error",
+    "no-unused-vars": "warn",
+    "no-use-before-define": [
+      "error",
+      "nofunc"
+    ],
+    "quotes": [
+      "error",
+      "single"
+    ],
+    "import/no-commonjs": [ 2, { "allowRequire": true }]
+  }
+}
