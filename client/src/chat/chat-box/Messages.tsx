@@ -10,7 +10,7 @@ export default class Messages extends React.PureComponent {
   render() {
     return (
       <StyledMessages>
-        Messages
+       {''}
       </StyledMessages>
     );
   }

@@ -4,6 +4,8 @@ import App from './App';
 import { injectGlobal } from 'emotion';
 import registerServiceWorker from './registerServiceWorker';
 
+import 'typeface-ibm-plex-sans';
+
 injectGlobal`
   body {
     height: 100%;
@@ -11,6 +13,7 @@ injectGlobal`
     padding: 0;
     min-width: 768px;
     overflow: hidden;
+    font-family: IBMPlexSans, "Helvetica Neue", "Segoe UI", Helvetica, Verdana, Arial, sans-serif;
   }
 `;
 
