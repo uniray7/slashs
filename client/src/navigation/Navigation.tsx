@@ -4,6 +4,7 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import ChatIcon from '@material-ui/icons/Chat';
 import HomeIcon from '@material-ui/icons/Home';
 import PeopleIcon from '@material-ui/icons/People';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 const StyledNavigation = styled('div')`
   display: flex;
@@ -17,6 +18,8 @@ const StyledNavigation = styled('div')`
 `;
 
 const StyledFooter = styled('div')`
+  display: flex;
+  flex-direction: column;
   margin-top: auto;
   margin-bottom: 20px;
 `;
@@ -35,6 +38,7 @@ export class Navigation extends React.PureComponent {
         <PeopleIcon fontSize="large" className={styles.icon} />
         <ChatIcon fontSize="large" className={styles.icon} />
         <StyledFooter>
+          <AccountCircleIcon fontSize="large" className={styles.icon} />
           <SettingsIcon fontSize="large" className={styles.icon} />
         </StyledFooter>
       </StyledNavigation>
