@@ -23,6 +23,13 @@
       }
     ],
     "curly": false,
-    "interface-name": false
+    "interface-name": false,
+    "no-unused-expression": [
+      "error",
+      {
+        "allow-ternary": true,
+        "allow-template-tags": true
+      }
+    ]
   }
 }

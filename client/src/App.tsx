@@ -1,30 +1,22 @@
-import * as React from "react";
-import { ApolloProvider } from "react-apollo";
-import gql from "graphql-tag";
+import * as React from 'react';
+import { ApolloProvider } from 'react-apollo';
+import styled from 'react-emotion';
 
-import { client } from "./apollo";
-import Chat from "./Chat";
+import { client } from './apollo';
+import { Navigation } from './navigation';
+import { Chat } from './chat';
 
-import "./App.css";
-
+const StyledApp = styled('div')`
+  display: flex;
+`;
 class App extends React.Component {
-  async componentDidMount() {
-    const data = await client.query({
-      query: gql`
-        {
-          hello
-        }
-      `
-    });
-    console.log(data);
-  }
-
   render() {
     return (
       <ApolloProvider client={client}>
-        <div className="App">
+        <StyledApp className="App">
+          <Navigation />
           <Chat />
-        </div>
+        </StyledApp>
       </ApolloProvider>
     );
   }
