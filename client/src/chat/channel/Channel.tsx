@@ -20,6 +20,11 @@ const StyledChannel = styled('div')`
   color: #efefef;
 `;
 
+const StyledSectionContainer = styled('div')`
+  overflow-x: hidden;
+  overflow-y: scroll;
+`;
+
 const TMP_LIST = [
   { name: 'Iron man' },
   { name: 'Spider man' },
@@ -34,9 +39,13 @@ export default class Channel extends React.PureComponent {
       <MuiThemeProvider theme={theme}>
         <StyledChannel>
           <Header />
-          <Section title="Recent" members={TMP_LIST} first={true} />
-          <Section title="Starred" members={shuffle(TMP_LIST)} />
-          <Section members={shuffle([...TMP_LIST, ...TMP_LIST, ...TMP_LIST])} />
+          <StyledSectionContainer>
+            <Section title="Recent" members={TMP_LIST} first={true} />
+            <Section title="Starred" members={shuffle(TMP_LIST)} />
+            <Section
+              members={shuffle([...TMP_LIST, ...TMP_LIST, ...TMP_LIST])}
+            />
+          </StyledSectionContainer>
         </StyledChannel>
       </MuiThemeProvider>
     );

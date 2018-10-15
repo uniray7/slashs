@@ -15,6 +15,18 @@ injectGlobal`
     overflow: hidden;
     font-family: IBMPlexSans, "Helvetica Neue", "Segoe UI", Helvetica, Verdana, Arial, sans-serif;
   }
+
+  ::-webkit-scrollbar {
+      width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+      background: #555555;
+  }
+
+  ::-webkit-scrollbar-thumb {
+      background: #888888;
+  }
 `;
 
 ReactDOM.render(<App />, document.getElementById('root') as HTMLElement);

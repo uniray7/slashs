@@ -25,6 +25,7 @@ export default class Header extends React.PureComponent {
   render() {
     return (
       <StyledHeader>
+        <svg width="30" height="30" data-jdenticon-value="user127" />{' '}
         Iron Man
         <StyledToolBar>
           <NotificationsIcon />

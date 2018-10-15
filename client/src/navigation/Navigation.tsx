@@ -11,7 +11,7 @@ const StyledNavigation = styled('div')`
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  width: 70px;
+  width: 60px;
   height: 100vh;
   background: #333333;
   color: #cdcdcd;
