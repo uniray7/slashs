@@ -7,7 +7,7 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    addMessage(message: String): Message
+    addMessage(text: String): Message
   }
 
   type Query {
@@ -18,7 +18,7 @@ const typeDefs = gql`
   type Message {
     id: ID
     user: String
-    content: String
+    text: String
   }
 `;
 

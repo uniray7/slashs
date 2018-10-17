@@ -8,12 +8,12 @@ let messages = [
   {
     id: 1,
     user: 'user1',
-    content: 'test msg1'
+    text: 'test msg1'
   },
   {
     id: 2,
     user: 'user2',
-    content: 'test msg2'
+    text: 'test msg2'
   }
 ];
 
@@ -32,7 +32,7 @@ const resolvers = {
       const newMsg = {
         id: messages.length + 1,
         user: 'user3',
-        content: args.message
+        text: args.text
       };
       pubsub.publish(MSG_ADDED, { messageAdded: newMsg });
       messages.push(newMsg);
