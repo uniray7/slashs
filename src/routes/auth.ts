@@ -1,6 +1,7 @@
-const express = require('express');
-const passport = require('passport');
-var router = express.Router();
+import express from 'express';
+import passport from 'passport';
+
+const router = express.Router();
 
 /* GET users listing. */
 router.get('/google', passport.authenticate('google', { scope: ['profile'] }));
@@ -10,4 +11,4 @@ router.get('/google/callback', passport.authenticate('google', { failureRedirect
     res.redirect('/homepage');
   });
 
-module.exports = router;
+export default router;

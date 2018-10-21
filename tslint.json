@@ -1,0 +1,39 @@
+{
+  "extends": [
+    "tslint:recommended",
+    "tslint-react",
+    "tslint-config-prettier"
+  ],
+  "linterOptions": {
+    "exclude": [
+      "config/**/*.js",
+      "node_modules/**/*.ts",
+      "coverage/lcov-report/*.js"
+    ]
+  },
+  "rules": {
+    "jsx-no-lambda": false,
+    "member-access": [
+      true,
+      "no-public"
+    ],
+    "no-console": false,
+    "object-literal-sort-keys": false,
+    "ordered-imports": [
+      true,
+      {
+        "import-sources-order": "any",
+        "named-imports-order": "case-insensitive"
+      }
+    ],
+    "curly": false,
+    "interface-name": false,
+    "no-unused-expression": [
+      "error",
+      {
+        "allow-ternary": true,
+        "allow-template-tags": true
+      }
+    ]
+  }
+}

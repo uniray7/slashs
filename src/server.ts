@@ -1,4 +1,4 @@
-import morgan from 'morgan'; // logger request
+import morgan from 'morgan';
 import { GraphQLServer } from 'graphql-yoga';
 
 import routes from './routes';
