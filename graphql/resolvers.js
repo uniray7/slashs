@@ -1,4 +1,4 @@
-import { PubSub } from 'apollo-server-express';
+import { PubSub } from 'graphql-yoga';
 
 const pubsub = new PubSub();
 

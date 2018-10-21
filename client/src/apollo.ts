@@ -1,11 +1,11 @@
-import { ApolloClient } from "apollo-client";
-import { InMemoryCache } from "apollo-cache-inmemory";
-import { split } from "apollo-link";
-import { HttpLink } from "apollo-link-http";
-import { onError } from "apollo-link-error";
-import { WebSocketLink } from "apollo-link-ws";
-import { ApolloLink } from "apollo-link";
-import { getMainDefinition } from "apollo-utilities";
+import { ApolloClient } from 'apollo-client';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import { split } from 'apollo-link';
+import { HttpLink } from 'apollo-link-http';
+import { onError } from 'apollo-link-error';
+import { WebSocketLink } from 'apollo-link-ws';
+import { ApolloLink } from 'apollo-link';
+import { getMainDefinition } from 'apollo-utilities';
 
 interface Definition {
   kind: string;
@@ -14,13 +14,13 @@ interface Definition {
 
 // Create an http link:
 const httpLink = new HttpLink({
-  uri: "http://localhost:4000/graphql",
-  credentials: "same-origin"
+  uri: 'http://localhost:4000/graphql',
+  credentials: 'same-origin'
 });
 
 // Create a WebSocket link:
 const wsLink = new WebSocketLink({
-  uri: `ws://localhost:4000/graphql`,
+  uri: 'ws://localhost:4000/subscriptions',
   options: {
     reconnect: true
   }
@@ -32,7 +32,7 @@ const link = split(
   // split based on operation type
   ({ query }) => {
     const { kind, operation }: Definition = getMainDefinition(query);
-    return kind === "OperationDefinition" && operation === "subscription";
+    return kind === 'OperationDefinition' && operation === 'subscription';
   },
   wsLink,
   httpLink

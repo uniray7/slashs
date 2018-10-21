@@ -1,35 +1,24 @@
-import express from 'express';
 import morgan from 'morgan'; // logger request
-import { createServer } from 'http';
-import { ApolloServer } from 'apollo-server-express';
+import { GraphQLServer } from 'graphql-yoga';
+
+import routes from './routes';
 import { typeDefs, resolvers } from './graphql';
+import './config/passport';
 
-const PORT = 4000;
-const app = express();
-app.use(morgan('combined'));
-require('./config/passport');
-var routes = require('./routes');
-app.use(routes);
+const options = {
+  port: 4000,
+  endpoint: '/graphql',
+  subscriptions: '/subscriptions',
+  playground: '/playground'
+};
 
-const server = new ApolloServer({ typeDefs, resolvers });
-server.applyMiddleware({ app });
+const server = new GraphQLServer({ typeDefs, resolvers });
 
-const httpServer = createServer(app);
-server.installSubscriptionHandlers(httpServer);
+server.express.use(morgan('combined'));
+server.express.use(routes);
 
-httpServer.listen({ port: 4000 }, () => {
+server.start(options, ({ port }) =>
   console.log(
-    `🚀 Server ready at http://localhost:${PORT}${server.graphqlPath}`
-  );
-  console.log(
-    `🚀 Subscriptions ready at ws://localhost:${PORT}${
-      server.subscriptionsPath
-    }`
-  );
-});
-
-// app.listen({ port: 4000 }, () =>
-//   console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
-// );
-
-var usersRouter = require('./routes/users');
+    `Server started, listening on port ${port} for incoming requests.`
+  )
+);
