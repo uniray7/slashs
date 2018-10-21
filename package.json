@@ -20,7 +20,8 @@
     "morgan": "^1.9.1",
     "nodemon": "^1.18.4",
     "passport": "^0.4.0",
-    "passport-google-oauth20": "^1.0.0"
+    "passport-google-oauth20": "^1.0.0",
+    "prisma-client-lib": "^0.2.59"
   },
   "devDependencies": {
     "@types/morgan": "^1.7.35",

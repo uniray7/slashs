@@ -1,6 +1,7 @@
 import morgan from 'morgan';
 import { GraphQLServer } from 'graphql-yoga';
 
+import { prisma } from './generated/prisma';
 import routes from './routes';
 import { typeDefs, resolvers } from './graphql';
 import './config/passport';
@@ -12,7 +13,13 @@ const options = {
   playground: '/playground'
 };
 
-const server = new GraphQLServer({ typeDefs, resolvers });
+const server = new GraphQLServer({
+  typeDefs,
+  resolvers,
+  context: {
+    prisma,
+  }
+});
 
 server.express.use(morgan('combined'));
 server.express.use(routes);
