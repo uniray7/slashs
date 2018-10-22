@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "watch-server": "nodemon -r esm dist/server.js",
+    "watch-server": "nodemon -r esm -e ts,js,graphql dist/server.js",
     "watch-ts": "tsc -w",
     "watch": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"cyan.bold,green.bold\" \"yarn watch-ts\" \"yarn watch-server\"",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -16,6 +16,7 @@
     "express": "^4.16.4",
     "express-session": "^1.15.6",
     "graphql": "^14.0.2",
+    "graphql-import": "^0.7.1",
     "graphql-yoga": "^1.16.7",
     "morgan": "^1.9.1",
     "nodemon": "^1.18.4",

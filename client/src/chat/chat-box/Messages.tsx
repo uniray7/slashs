@@ -48,40 +48,48 @@ export class MessagesComponent extends React.PureComponent<MessageProps> {
   }
 }
 
+const channelId = 'cjnikuku45t1z0b9455muu2t2';
+
 const MESSAGES_QUERY = gql`
-  query {
-    messages {
-      id
-      text
+  query channel($id: ID!) {
+    channel(id: $id) {
+      messages {
+        id
+        text
+      }
     }
   }
 `;
 
 const MESSAGES_SUBSCRIPTION = gql`
-  subscription messageAdded {
-    messageAdded {
+  subscription messageCreated {
+    messageCreated {
       id
       text
+      __typename
     }
   }
 `;
 
 export const Messages = () => (
-  <Query query={MESSAGES_QUERY}>
+  <Query query={MESSAGES_QUERY} variables={{ id: channelId }}>
     {({ loading, error, data, subscribeToMore }) => {
       if (loading || error) return null;
       return (
         <MessagesComponent
-          messages={data.messages || []}
+          messages={data.channel.messages || []}
           subscribeToNewMessage={() => {
             subscribeToMore({
               document: MESSAGES_SUBSCRIPTION,
               updateQuery: (prev, { subscriptionData }) => {
                 if (!subscriptionData.data) return prev;
-                const newMessage = subscriptionData.data.messageAdded;
+                const newMessage = subscriptionData.data.messageCreated;
 
                 return {
-                  messages: [...prev.messages, newMessage]
+                  channel: {
+                    ...prev.channel,
+                    messages: [...prev.channel.messages, newMessage]
+                  }
                 };
               }
             });

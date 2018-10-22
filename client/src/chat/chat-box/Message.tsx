@@ -38,6 +38,8 @@ const toHtmlParagraph = (text: string) => {
 
 export default class Message extends React.PureComponent<MessageProp> {
   render() {
+
+
     const { text } = this.props;
     return (
       <StyledMessage>

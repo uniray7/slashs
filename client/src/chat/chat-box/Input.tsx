@@ -15,7 +15,7 @@ interface InputState {
 }
 
 interface InputProps {
-  addMessage?: (text: string) => void;
+  createMessage?: (text: string) => void;
 }
 
 export class InputComponent extends React.PureComponent<
@@ -33,8 +33,8 @@ export class InputComponent extends React.PureComponent<
   handleKeyPress = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.key === 'Enter') {
       e.preventDefault();
-      if (this.props.addMessage) {
-        this.props.addMessage(this.state.text);
+      if (this.props.createMessage) {
+        this.props.createMessage(this.state.text);
       }
       this.setState({ text: '' });
     }
@@ -72,9 +72,11 @@ export class InputComponent extends React.PureComponent<
   }
 }
 
+const userId = 'cjniaf5jf4vss0b947fugj2dl';
+const channelId = 'cjnikuku45t1z0b9455muu2t2';
 const ADD_MESSAGES_MUTATION = gql`
-  mutation addMessage($text: String!) {
-    addMessage(text: $text) {
+  mutation createMessage($text: String!, $userId: ID!, $channelId: ID!) {
+    createMessage(text: $text, userId: $userId, channelId: $channelId) {
       id
       text
     }
@@ -83,9 +85,10 @@ const ADD_MESSAGES_MUTATION = gql`
 
 export const Input = () => (
   <Mutation mutation={ADD_MESSAGES_MUTATION}>
-    {addMessage => (
+    {createMessage => (
       <InputComponent
-        addMessage={(text: string) => addMessage({ variables: { text } })}
+        createMessage={(text: string) =>
+          createMessage({ variables: { text, userId, channelId } })}
       />
     )}
   </Mutation>

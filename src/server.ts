@@ -3,7 +3,7 @@ import { GraphQLServer } from 'graphql-yoga';
 
 import { prisma } from './generated/prisma';
 import routes from './routes';
-import { typeDefs, resolvers } from './graphql';
+import resolvers from './resolvers';
 import './config/passport';
 
 const options = {
@@ -14,10 +14,10 @@ const options = {
 };
 
 const server = new GraphQLServer({
-  typeDefs,
+  typeDefs: './src/schema.graphql',
   resolvers,
   context: {
-    prisma,
+    prisma
   }
 });
 
