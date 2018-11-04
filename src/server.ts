@@ -1,7 +1,8 @@
 import morgan from 'morgan';
 import { GraphQLServer } from 'graphql-yoga';
+import 'reflect-metadata';
+import { createConnection } from 'typeorm';
 
-import { prisma } from './generated/prisma';
 import routes from './routes';
 import resolvers from './resolvers';
 import './config/passport';
@@ -15,17 +16,16 @@ const options = {
 
 const server = new GraphQLServer({
   typeDefs: './src/schema.graphql',
-  resolvers,
-  context: {
-    prisma
-  }
+  resolvers
 });
 
 server.express.use(morgan('combined'));
 server.express.use(routes);
 
-server.start(options, ({ port }) =>
-  console.log(
-    `Server started, listening on port ${port} for incoming requests.`
-  )
-);
+createConnection().then(() => {
+  server.start(options, ({ port }) =>
+    console.log(
+      `Server started, listening on port ${port} for incoming requests.`
+    )
+  );
+});
