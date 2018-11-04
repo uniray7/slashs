@@ -1,41 +1,58 @@
+import { getRepository } from 'typeorm';
+import { Channel } from './entity/channel';
+import { User } from './entity/user';
+import { Message } from './entity/message';
+
 const resolvers = {
   Query: {
-    hello: () => 'Hello world!'
-    // users: (root, args, { prisma }) => prisma.users(),
-    // user: (root, { id }, { prisma }) => prisma.user({ id }),
-    // channel: (root, { id }, { prisma }) => prisma.channel({ id }),
-    // myChannels: async (root, { userId }, { prisma }) => {
-    //   const userChannels = await prisma
-    //     .userChannels({
-    //       where: {
-    //         user: { id: userId }
-    //       }
-    //     })
-    //     .channels();
-    //   return prisma
-    //     .userChannels({
-    //       where: {
-    //         AND: [
-    //           { channel: { id__in: channelIds } },
-    //           { NOT: { user: { id: userId } } }
-    //         ]
-    //       }
-    //     })
-    //     .users();
-    // }
-  }
+    hello: () => 'Hello world!',
+    channel: async (root, { id }) => {
+      const channelRepository = getRepository(Channel);
+      return await channelRepository.findOne(id);
+    },
+    user: async (root, { id }) => await getRepository(User).findOne(id)
+  },
 
-  // Mutation: {
-  // createMessage: async (root, { text, userId, channelId }, { prisma }) => {
-  //   return await prisma.createMessage({
-  //     text,
-  //     user: { connect: { id: userId } },
-  //     channel: { connect: { id: channelId } }
-  //   });
-  // },
-  // createUser: async (root, { name }, { prisma }) =>
-  //   await prisma.createUser({ name })
-  // },
+  Mutation: {
+    createMessage: async (root, { text, userId, channelId }) => {
+      const message = new Message();
+      message.text = text;
+      message.user = userId;
+      message.channel = channelId;
+      await message.save();
+
+      return message;
+    },
+    createUser: async (root, { username }) => {
+      const user = new User();
+      user.username = username;
+      await user.save();
+
+      return user;
+    }
+  },
+
+  Message: {
+    user: async ({ id }) => await getRepository(User).findOne(id)
+  },
+
+  Channel: {
+    messages: async ({ id }) =>
+      (await getRepository(Message).find({
+        where: { channel: id }
+      })) || []
+  },
+
+  User: {
+    channels: async ({ id }) => {
+      const user = await getRepository(User).findOne({
+        where: { id },
+        relations: ['channels']
+      });
+
+      return user ? user.channels : [];
+    }
+  }
 
   // Subscription: {
   // messageCreated: {
@@ -51,21 +68,6 @@ const resolvers = {
   // resolve: payload => payload
   // }
   // },
-
-  // Channel: {
-  // messages: ({ id }, args, { prisma }) => prisma.channel({ id }).messages()
-  // }
-
-  // UserChannel: {
-  // user: ({ id }, args, { prisma }) => prisma.userChannel({ id }).user(),
-  // channel: ({ id }, args, { prisma }) => prisma.userChannel({ id }).channel()
-  // },
-
-  // Message: {
-  // user: ({ id }, args, { prisma }) => prisma.message({ id }).user(),
-  // channel: ({ id }, args, { prisma }) =>
-  //   prisma.message({ id }).directChannel()
-  // }
 };
 
 export default resolvers;

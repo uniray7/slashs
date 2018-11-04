@@ -2,38 +2,32 @@
   # messageCreated: Message!
 # }
 
-# type Mutation {
-  # createMessage(text: String!, userId: ID!, channelId: ID!): Message
-  # createUser(name: String!): User
-# }
-
 type Query {
   hello: String
-  # messages: [Message]
-  # users: [User]
-  # user(id: ID!): User
-  # channel(id: ID!): DirectChannel
-  # channels: [DirectChannel]
+  channel(id: ID!): Channel
+  user(id: ID!): User
 }
 
-# scalar DateTime
+type Mutation {
+  createMessage(text: String!, userId: ID!, channelId: ID!): Message
+  createUser(username: String!): User
+}
 
-# type User {
-#   id: ID!
-#   name: String!
-# }
+type Channel {
+  id: ID!
+  name: String
+  messages: [Message]!
+}
 
-# type DirectChannel {
-#   id: ID!
-#   user1: User!
-#   user2: User!
-#   messages: [Message]!
-# }
+type User {
+  id: ID!
+  username: String!
+  channels: [Channel]!
+}
 
-# type Message {
-#   id: ID!
-#   user: User!
-#   text: String!
-#   channel: DirectChannel!
-#   createdAt: DateTime!
-# }
+type Message {
+  id: ID!
+  user: User!
+  text: String!
+  # createdAt: DateTime!
+}

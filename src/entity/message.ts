@@ -3,7 +3,8 @@ import {
   PrimaryGeneratedColumn,
   Column,
   BaseEntity,
-  ManyToOne
+  ManyToOne,
+  CreateDateColumn
 } from 'typeorm';
 import { User } from './user';
 import { Channel } from './channel';
@@ -20,8 +21,8 @@ export class Message extends BaseEntity {
   text: string;
 
   @ManyToOne(type => Channel, channel => channel.messages)
-  channel: string;
+  channel: number;
 
-  @Column()
+  @CreateDateColumn()
   createdAt: string;
 }
