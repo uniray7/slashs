@@ -1,7 +1,11 @@
+import { PubSub } from 'graphql-yoga';
 import { getRepository } from 'typeorm';
 import { Channel } from './entity/channel';
 import { User } from './entity/user';
 import { Message } from './entity/message';
+
+const pubsub = new PubSub();
+const MESSAGE_CREATED = 'MESSAGE_CREATED';
 
 const resolvers = {
   Query: {
@@ -21,6 +25,7 @@ const resolvers = {
       message.channel = channelId;
       await message.save();
 
+      pubsub.publish(MESSAGE_CREATED, { messageCreated: message });
       return message;
     },
     createUser: async (root, { username }) => {
@@ -29,6 +34,12 @@ const resolvers = {
       await user.save();
 
       return user;
+    }
+  },
+
+  Subscription: {
+    messageCreated: {
+      subscribe: () => pubsub.asyncIterator([MESSAGE_CREATED])
     }
   },
 
@@ -53,21 +64,6 @@ const resolvers = {
       return user ? user.channels : [];
     }
   }
-
-  // Subscription: {
-  // messageCreated: {
-  // subscribe: async (root, args, { prisma }) => {
-  //   return await prisma.$subscribe
-  //     .message({
-  //       where: {
-  //         mutation_in: ['CREATED', 'UPDATED']
-  //       }
-  //     })
-  //     .node();
-  // },
-  // resolve: payload => payload
-  // }
-  // },
 };
 
 export default resolvers;

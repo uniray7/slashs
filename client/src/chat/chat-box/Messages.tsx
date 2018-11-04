@@ -48,7 +48,7 @@ export class MessagesComponent extends React.PureComponent<MessageProps> {
   }
 }
 
-const channelId = 'cjnikuku45t1z0b9455muu2t2';
+const channelId = '1';
 
 const MESSAGES_QUERY = gql`
   query channel($id: ID!) {

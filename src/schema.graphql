@@ -1,7 +1,3 @@
-# type Subscription {
-  # messageCreated: Message!
-# }
-
 type Query {
   hello: String
   channel(id: ID!): Channel
@@ -11,6 +7,10 @@ type Query {
 type Mutation {
   createMessage(text: String!, userId: ID!, channelId: ID!): Message
   createUser(username: String!): User
+}
+
+type Subscription {
+  messageCreated: Message!
 }
 
 type Channel {

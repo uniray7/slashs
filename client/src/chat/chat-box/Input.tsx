@@ -72,8 +72,8 @@ export class InputComponent extends React.PureComponent<
   }
 }
 
-const userId = 'cjniaf5jf4vss0b947fugj2dl';
-const channelId = 'cjnikuku45t1z0b9455muu2t2';
+const userId = '1';
+const channelId = '1';
 const ADD_MESSAGES_MUTATION = gql`
   mutation createMessage($text: String!, $userId: ID!, $channelId: ID!) {
     createMessage(text: $text, userId: $userId, channelId: $channelId) {
@@ -88,7 +88,8 @@ export const Input = () => (
     {createMessage => (
       <InputComponent
         createMessage={(text: string) =>
-          createMessage({ variables: { text, userId, channelId } })}
+          createMessage({ variables: { text, userId, channelId } })
+        }
       />
     )}
   </Mutation>
